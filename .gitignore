@@ -1,0 +1,12 @@
+# Mac
+.DS_Store
+
+# Python
+*.pyc
+
+# Application specific
+venv
+*.db
+
+# Vim
+*.swp
