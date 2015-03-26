@@ -1,13 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, g
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps
 import sqlite3
+import models
 
 # Create the application object
 app = Flask(__name__)
 
 # Config
 app.secret_key = "Ooh so secret"
-app.database = 'sample.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+
+# Create the SQLAlchemy object
+db = SQLAlchemy(app)
+
+# Import db schema
+#from models import BlogPost
 
 # Login required decorator
 def login_required(f):
@@ -24,18 +32,18 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    posts = []
+    # posts = []
+    # try:
+    #     # TODO: Could check value of g, to avoid creating a connection every time
+    #     g.db = connect_db()
+    #     # TODO: Understand sqlite3 functions: execute and fetchall
+    #     query = g.db.execute("SELECT * FROM POSTS")
+    #     posts = [{'title': row[0], 'description': row[1]} for row in query.fetchall()]
+    #     g.db.close()
+    # except sqlite3.OperationalError:
+    #     flash("You have no database!")
 
-    try:
-        # TODO: Could check value of g, to avoid creating a connection every time
-        g.db = connect_db()
-        # TODO: Understand sqlite3 functions: execute and fetchall
-        query = g.db.execute("SELECT * FROM POSTS")
-        posts = [{'title': row[0], 'description': row[1]} for row in query.fetchall()]
-        g.db.close()
-    except sqlite3.OperationalError:
-        flash("You have no database!")
-
+    posts = db.session.query(models.BlogPost).all()
     return render_template('index.html', posts=posts)
 
 @app.route('/welcome')
@@ -63,8 +71,8 @@ def logout():
 
 # Connect to the database
 # Returns the connection object
-def connect_db():
-    return sqlite3.connect(app.database)
+# def connect_db():
+#     return sqlite3.connect(app.database)
 
 # Start server
 if __name__ == '__main__':
