@@ -6,4 +6,5 @@ SQLAlchemy==0.9.9
 Werkzeug==0.9.6
 gunicorn==19.3.0
 itsdangerous==0.24
+psycopg2==2.6
 wsgiref==0.1.2

@@ -7,6 +7,4 @@ db.create_all()
 # Add first few posts
 db.session.add(BlogPost("Well", "I am well!"))
 db.session.add(BlogPost("Good", "I am good!"))
-db.session.add(BlogPost("Excellent", "I am excellent!"))
-db.session.add(BlogPost("Okay", "I am okay!"))
 db.session.commit()
