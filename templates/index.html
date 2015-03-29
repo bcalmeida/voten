@@ -9,6 +9,7 @@
 {% for post in posts %}
     <strong>Title:</strong> {{ post.title }} <br>
     <strong>Description:</strong> {{ post.description }} <br>
+    <strong>Author:</strong> {{ post.author.name }} ({{ post.author.email }}) <br>
     <br>
 {% endfor %}
 
