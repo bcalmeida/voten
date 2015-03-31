@@ -74,6 +74,35 @@ def get_poll(poll_id):
 
     return jsonify({'poll': poll_json})
 
+@app.route('/poll', methods=['POST'])
+def create_poll():
+    # Check if POST data has a json
+    # TODO: Use request.get_json and catch exception
+    new_poll_json = request.json
+    if new_poll_json is None:
+        abort(400)
+
+    # Check input
+    # TODO: Refactor input arguments checking
+    if 'description' not in new_poll_json:
+        abort(400)
+    if 'candidates' not in new_poll_json:
+        abort(400)
+
+    # Create new poll and add it to the db
+    new_poll = Poll(new_poll_json['description'])
+    db.session.add(new_poll)
+    db.session.commit()
+
+    # Create corresponding candidates and add it to the db
+    for new_candidate_json in new_poll_json['candidates']:
+        new_candidate = Candidate(new_candidate_json['description'], new_poll.id)
+        db.session.add(new_candidate)
+    db.session.commit()
+
+    # Return 201, HTTP code for 'Created'
+    return ('', 201)
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not Found'}), 404)

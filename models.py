@@ -30,9 +30,10 @@ class Candidate(db.Model):
     votes = db.Column(db.Integer, nullable=False)
     poll_id = db.Column(db.Integer, ForeignKey('polls.id'))
 
-    def __init__(self, description):
+    def __init__(self, description, poll_id):
         self.description = description
         self.votes = 0
+        self.poll_id = poll_id
 
     def __repr__(self):
         return '<candidate: %s>' % self.description
