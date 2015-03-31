@@ -106,7 +106,7 @@ def create_poll():
     db.session.commit()
 
     # Return 201, HTTP code for 'Created'
-    return ('', 201)
+    return jsonify({'poll_id': new_poll.id}), 201
 
 @app.route('/poll/<int:poll_id>', methods=['POST'])
 def vote_on_poll(poll_id):
