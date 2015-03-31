@@ -57,7 +57,12 @@ def logout():
     flash("You were just logged out!")
     return redirect(url_for('welcome'))
 
+
+###########################
 ## RESTful API endpoints ##
+###########################
+# TODO: Do not allow/handle when user puts two candidates with same descriptions
+
 @app.route('/poll/<int:poll_id>', methods=['GET'])
 def get_poll(poll_id):
     poll = db.session.query(Poll).filter_by(id=poll_id).first()
@@ -102,6 +107,29 @@ def create_poll():
 
     # Return 201, HTTP code for 'Created'
     return ('', 201)
+
+@app.route('/poll/<int:poll_id>', methods=['POST'])
+def vote_on_poll(poll_id):
+    # Check if POST data has a json
+    # TODO: Use request.get_json and catch exception
+    vote_json = request.json
+    if vote_json is None:
+        abort(400)
+
+    # Check input
+    if 'candidate_description' not in vote_json:
+        abort(400)
+
+    # Update candidate with said description, in this poll
+    candidates = db.session.query(Candidate).filter_by(poll_id=poll_id).all()
+    for candidate in candidates:
+        if candidate.description == vote_json['candidate_description']:
+            candidate.votes += 1
+            db.session.commit()
+            return ('', 200)
+
+    # Said candidate is not present in this poll
+    abort(400)
 
 @app.errorhandler(404)
 def not_found(error):
