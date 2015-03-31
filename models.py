@@ -4,6 +4,41 @@ from sqlalchemy.orm import relationship
 from app import db
 
 
+# Models for the polls
+# Poll-Candidate relationship is one-to-many, like User-Post
+class Poll(db.Model):
+
+    __tablename__ = "polls"
+
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String, nullable=False)
+    candidates = relationship("Candidate", backref="poll")
+
+    def __init__(self, description):
+        self.description = description
+
+    def __repr__(self):
+        return '<poll: %s>' % self.description
+
+
+class Candidate(db.Model):
+
+    __tablename__ = "candidates"
+
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String, nullable=False)
+    votes = db.Column(db.Integer, nullable=False)
+    poll_id = db.Column(db.Integer, ForeignKey('polls.id'))
+
+    def __init__(self, description):
+        self.description = description
+        self.votes = 0
+
+    def __repr__(self):
+        return '<candidate: %s>' % self.description
+
+
+# Old models, used for users and posts
 class BlogPost(db.Model):
 
     __tablename__ = "posts"
