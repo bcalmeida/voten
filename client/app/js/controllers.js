@@ -1,9 +1,10 @@
 angular.module('PollApp.controllers', []).
-controller('pollsController', function($scope, pollsAPIservice) {
+controller('pollsController', function($scope, $routeParams, pollsAPIservice) {
+    $scope.id = $routeParams.id;
     $scope.poll = null;
     $scope.candidates = [];
 
-    pollsAPIservice.getPoll().
+    pollsAPIservice.getPoll($scope.id).
     success(function(data) {
         $scope.poll = data.poll;
         $scope.candidates = data.poll.candidates;
@@ -13,38 +14,4 @@ controller('pollsController', function($scope, pollsAPIservice) {
         console.error(status);
     });
 });
-
-//angular.module('F1FeederApp.controllers', []).
-//controller('driversController', function($scope, ergastAPIservice) {
-//    // $scope.driversList = [
-//    //   {
-//    //       Driver: {
-//    //           givenName: 'Sebastian',
-//    //           familyName: 'Vettel'
-//    //       },
-//    //       points: 322,
-//    //       nationality: "German",
-//    //       Constructors: [
-//    //           {name: "Red Bull"}
-//    //       ]
-//    //   },
-//    //   {
-//    //       Driver: {
-//    //       givenName: 'Fernando',
-//    //           familyName: 'Alonso'
-//    //       },
-//    //       points: 207,
-//    //       nationality: "Spanish",
-//    //       Constructors: [
-//    //           {name: "Ferrari"}
-//    //       ]
-//    //   }
-//    // ];
-//    $scope.driversList = [];
-//
-//    ergastAPIservice.getDrivers().success(function(response) {
-//        $scope.driversList = response.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-//    });
-//}).
-
 

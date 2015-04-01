@@ -3,10 +3,10 @@ angular.module('PollApp.services', []).
 
       var pollsAPI = {};
 
-      pollsAPI.getPoll = function() {
+      pollsAPI.getPoll = function(id) {
           return $http({
               method: 'GET',
-              url: 'http://flask-intro-sample-app.herokuapp.com/poll/3'
+              url: 'http://flask-intro-sample-app.herokuapp.com/poll/' + id
 
               // Other urls
               //url: 'http://localhost:5000/poll/3'
