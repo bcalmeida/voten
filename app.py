@@ -137,6 +137,17 @@ def vote_on_poll(poll_id):
 def not_found(error):
     return make_response(jsonify({'error': 'Not Found'}), 404)
 
+@app.after_request
+def add_cors(resp):
+    """ Ensure all responses have the CORS headers. This ensures any failures are also accessible
+        by the client. """
+    resp.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin','*')
+    resp.headers['Access-Control-Allow-Credentials'] = 'true'
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
+    resp.headers['Access-Control-Allow-Headers'] = request.headers.get(
+        'Access-Control-Request-Headers', 'Authorization' )
+    return resp
+
 # Start server
 if __name__ == '__main__':
     app.run()
