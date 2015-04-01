@@ -1,0 +1,12 @@
+<table>
+  <thead>
+    <tr><th colspan="2">Poll result - {{poll.description}}</th></tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="candidate in candidates">
+      <td>{{candidate.description}}</td>
+      <td>{{candidate.votes}}</td>
+    </tr>
+  </tbody>
+</table>
+

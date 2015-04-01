@@ -5,7 +5,8 @@ angular.module('PollApp', [
 ]).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.
-        when("/poll/:id", {templateUrl: "partials/poll.html", controller: "pollsController"}).
-        otherwise({redirectTo: "/poll/1"});
+        when("/poll/:id", {templateUrl: "partials/vote.html", controller: "pollsController"}).
+        when("/result/:id", {templateUrl: "partials/result.html", controller: "pollsController"}).
+        otherwise({redirectTo: "/poll/5"});
 }]);
 

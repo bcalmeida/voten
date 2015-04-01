@@ -9,7 +9,7 @@ controller('pollsController', function($scope, $location, $routeParams, pollsAPI
         pollsAPIservice.voteOnPoll($scope.id, candidate).
             success(function () {
                 $scope.voteReceived = "Received!";
-                $location.path('/poll/5');
+                $location.path('/result/' + $scope.id);
             }).
             error(function (data, status, headers, config) {
                 $scope.voteReceived = "Failed!";
