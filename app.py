@@ -77,7 +77,9 @@ def get_poll(poll_id):
         'candidates': candidates_jsons
     }
 
-    return jsonify({'poll': poll_json})
+    resp = jsonify({'poll': poll_json})
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 @app.route('/poll', methods=['POST'])
 def create_poll():
