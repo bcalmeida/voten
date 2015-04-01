@@ -7,7 +7,7 @@ angular.module('PollApp.services', []).
           return $http({
               method: 'GET',
               //url: 'http://flask-intro-sample-app.herokuapp.com/poll/' + id
-              url: 'http://localhost:5000/poll/3'
+              url: 'http://localhost:5000/poll/' + id
           });
       }
 
