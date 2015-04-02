@@ -6,7 +6,7 @@ angular.module('PollApp.services', []).
       pollsAPI.getPoll = function(id) {
           return $http({
               method: 'GET',
-              url: 'http://flask-intro-sample-app.herokuapp.com/poll/' + id
+              url: 'http://voten.herokuapp.com/poll/' + id
               //url: 'http://localhost:5000/poll/' + id
           });
       }
@@ -14,7 +14,7 @@ angular.module('PollApp.services', []).
       pollsAPI.voteOnPoll = function(pollId, candidate) {
           return $http({
               method: 'POST',
-              url: 'http://flask-intro-sample-app.herokuapp.com/poll/' + pollId,
+              url: 'http://voten.herokuapp.com/poll/' + pollId,
               //url: 'http://localhost:5000/poll/' + pollId,
               data: {"candidate_description": candidate.description}
           });
@@ -23,7 +23,7 @@ angular.module('PollApp.services', []).
       pollsAPI.createPoll = function(poll) {
           return $http({
               method:'POST',
-              url: 'http://flask-intro-sample-app.herokuapp.com/poll',
+              url: 'http://voten.herokuapp.com/poll',
               //url: 'http://localhost:5000/poll',
               data: poll
           });
