@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Create a poll!</h2>
+  <form class="form-horizontal" role="form">
+    <!-- Poll description -->
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="desc">Poll description:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="desc" ng-model="description" placeholder="Enter the poll description">
+      </div>
+    </div>
+    <!-- Poll choices-->
+    <div ng-repeat="choice in choices">
+      <div class="form-group">
+        <!-- Labels -->
+        <label ng-show="$first" class="control-label col-sm-2" for="ch">Choices:</label>
+        <label ng-show="!$first && !$last" class="control-label col-sm-2" for="ch"></label>
+        <label ng-show="$last" class="control-label col-sm-2" for="ch">
+          <p>
+            <button ng-click="addNewChoice()" class="btn btn-default">+</button>
+            <button ng-click="removeChoice()" class="btn btn-default">-</button>
+          </p>
+        </label>
+        <!-- Input fields -->
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="ch" ng-model="choice.description" placeholder="Enter a description">
+        </div>
+      </div>
+    </div>
+    <!-- Poll create button -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button ng-click="createPoll()" ng-disabled="buttonDisabled" class="btn btn-primary">Create!</button>
+        <div class="alert alert-danger" ng-show="!valid">Please, complete all the fields!</div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!--
+<h3>Debug</h3>
+<p>{{description}}</p>
+<div class="choice-entry" ng-repeat="choice in choices">
+  <p>{{choice}}</p>
+</div>
+-->
+

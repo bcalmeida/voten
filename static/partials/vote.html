@@ -1,0 +1,10 @@
+<div class="page-header">
+  <h1>{{poll.description}}</h1>
+</div>
+<ul class="list-group">
+    <li ng-repeat="candidate in candidates" class="list-group-item">
+      {{candidate.description}}
+      <button type="button" class="btn btn-sm btn-primary pull-right" ng-click="vote(candidate)">Vote!</button>
+    </li>
+</ul>
+
