@@ -1,12 +1,10 @@
-<table>
-  <thead>
-    <tr><th colspan="2">Poll result - {{poll.description}}</th></tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="candidate in candidates">
-      <td>{{candidate.description}}</td>
-      <td>{{candidate.votes}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="page-header">
+  <h1>Poll Result - {{poll.description}}</h1>
+</div>
+<ul class="list-group">
+    <li ng-repeat="candidate in candidates" class="list-group-item">
+      {{candidate.description}}
+      <span class="badge pull-right">{{candidate.votes}}</span>
+    </li>
+</ul>
 
