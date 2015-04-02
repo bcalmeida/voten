@@ -1,0 +1,18 @@
+<h1>Create a poll!</h1>
+
+<label>Poll description</label>
+<input type="text" ng-model="description" placeholder="Enter the poll description">
+
+<div class="choice-entry" ng-repeat="choice in choices">
+  <label ng-show="$first">Choices</label>
+  <button ng-show="$last" ng-click="addNewChoice()">Add another choice</button>
+  <input type="text" ng-model="choice.description" placeholder="Enter a description">
+</div>
+
+<button ng-click="createPoll()" ng-disabled="buttonDisabled">Create!</button>
+
+<h3>Debug</h3>
+<p>{{description}}</p>
+<div class="choice-entry" ng-repeat="choice in choices">
+  <p>{{choice}}</p>
+</div>

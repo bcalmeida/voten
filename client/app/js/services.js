@@ -20,6 +20,14 @@ angular.module('PollApp.services', []).
           });
       }
 
+      pollsAPI.createPoll = function(poll) {
+          return $http({
+              method:'POST',
+              url: 'http://localhost:5000/poll',
+              data: poll
+          });
+      }
+
       return pollsAPI;
   });
 

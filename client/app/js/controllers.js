@@ -26,5 +26,34 @@ controller('pollsController', function($scope, $location, $routeParams, pollsAPI
             $scope.poll = status;
             console.error(status);
         });
+}).
+controller('createController', function ($scope, $location, pollsAPIservice) {
+    $scope.description = "";
+    $scope.choices = [{'position': 1}, {'position': 2}, {'position': 3}];
+    $scope.buttonDisabled = false;
+
+    $scope.addNewChoice = function() {
+        var position = $scope.choices.length + 1;
+        $scope.choices.push({'position': position});
+    };
+
+    // TODO: Do not add empty choices. Or do not allow empty choices?
+    $scope.createPoll = function() {
+        $scope.buttonDisabled = true;
+
+        var poll = {'description': $scope.description};
+        poll.candidates = []
+        for (var i = 0; i < $scope.choices.length; i++) {
+            poll.candidates.push({'description': $scope.choices[i].description});
+        }
+
+        pollsAPIservice.createPoll(poll).
+            success(function (data) {
+                $location.path('/poll/' + data.poll_id);
+            }).
+            error(function(data, status, headers, config) {
+                console.error(status);
+            });
+    };
 });
 
